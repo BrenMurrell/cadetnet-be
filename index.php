@@ -11,6 +11,8 @@ $app->get('/users/:id',    'getUser');
 
 $app->get('/codes', 'getCodes');
 
+$app->post('/articles', 'addArticle');
+
 $app->run();
 
 
