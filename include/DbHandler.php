@@ -178,6 +178,20 @@ class DbHandler {
             return NULL;
         }
     }
+    public function getUserUnit($api_key) {
+        $stmt = $this->conn->prepare("SELECT unit FROM users WHERE api_key = ?");
+        $stmt->bind_param("s", $api_key);
+        if ($stmt->execute()) {
+            $stmt->bind_result($user_unit);
+            $stmt->fetch();
+            // TODO
+            // $user_id = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $user_unit;
+        } else {
+            return NULL;
+        }
+    }
 
     /**
      * Validating user api key
@@ -315,6 +329,20 @@ class DbHandler {
         }
         $stmt->close();
         return $result;
+    }
+    
+    
+    /**
+     * Fetching all user personnel for this users unit
+     * @param String $user_unit unit of the user
+     */
+    public function getAllPersonnel($user_unit) {
+        $stmt = $this->conn->prepare("SELECT * from personnel WHERE unit = ?");
+        $stmt->bind_param("i", $user_unit);
+        $stmt->execute();
+        $personnel = $stmt->get_result();
+        $stmt->close();
+        return $personnel;
     }
 
 }
