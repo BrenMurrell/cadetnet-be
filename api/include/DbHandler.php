@@ -337,8 +337,8 @@ class DbHandler {
      * @param String $user_unit unit of the user
      */
     public function getAllPersonnel($user_unit) {
-        $stmt = $this->conn->prepare("SELECT * from personnel WHERE unit = ?");
-        $stmt->bind_param("i", $user_unit);
+        $stmt = $this->conn->prepare("SELECT * from personnel WHERE unit = ? AND status = 1");
+        $stmt->bind_param("s", $user_unit);
         $stmt->execute();
         $personnel = $stmt->get_result();
         $stmt->close();
