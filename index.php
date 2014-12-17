@@ -19,17 +19,16 @@
 <script>
     function personController($scope) {
         
+        apikey = localStorage["cnApikey"];
         $myData = jQuery.parseJSON(
             $.ajax({
                 type: "GET",
-                url: "http://localhost/cadetnet-be/v1/personnel",
-                //url: "http://api.takethechallenge.co.nz/v1/personnel",
-                //async: false,
-                contentType : "application/json",
-                dataType: 'jsonp',
+                url: "api/v1/personnel",
+                async: false,
+                dataType: 'json',
                 beforeSend: function (xhr){ 
-                    xhr.setRequestHeader('Authorization', '3a2e796b37691444c7143bf406f1a538'); 
-                    //xhr.setRequestHeader('Authorization', 'a42efed6147492e278ecdf752ed3f0b4'); 
+                    xhr.setRequestHeader('Authorization', apikey); 
+                    
                 }
             }).responseText
         );
@@ -38,5 +37,8 @@
         //console.log($myData["personnel"]);
     }
 </script>
+    <?php
+$dir = dirname(__FILE__);
+?>
 </body>
 </html>
